@@ -3,12 +3,12 @@ import hero from "../assets/hero.jpeg";
 export function Hero() {
   return (
     <>
-      <div class="flex justify-center items-center flex-col">
+      <div id="hero" className="flex justify-center items-center flex-col">
         <div
-          class="w-full h-[32rem] bg-cover bg-center"
+          className="w-full h-[32rem] bg-cover bg-center"
           style={{ backgroundImage: `url(${hero.src})` }}
         >
-          <div class="w-full h-full flex justify-center items-center backdrop-brightness-50">
+          <div className="w-full h-full flex justify-center items-center backdrop-brightness-50">
             <div className="text-center">
               <h1 className="max-w-4xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
                 Tu Portal Metereológico en Línea
