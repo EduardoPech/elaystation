@@ -18,3 +18,20 @@
 
 body {
 }
+
+.hero {
+  display: grid;
+  width: 100%;
+  place-items: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  height: 100%;
+  width: 100%;
+  background-color: var(--fallback-n, oklch(var(--n) / var(--tw-bg-opacity)));
+  --tw-bg-opacity: 0.5;
+}

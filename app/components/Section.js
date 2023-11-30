@@ -9,9 +9,14 @@ export function Section() {
             Misión
           </h2>
           <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            quos, voluptatum, voluptates, quas quia quibusdam voluptate
-            voluptatibus fugit quae dolorum voluptas. Quisquam quos, voluptatum,
+            Nuestra misión es proporcionar una plataforma integral de
+            información meteorológica en tiempo real, a través de una estación
+            meteorológica ubicada en la universidad. Buscamos fomentar la
+            conciencia ambiental y la curiosidad científica al ofrecer métricas
+            precisas y actualizadas para estudiantes, académicos y cualquier
+            persona interesada. Nos comprometemos a facilitar el acceso a datos
+            meteorológicos de calidad, promoviendo la comprensión del clima y su
+            impacto en nuestro entorno.
           </p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam

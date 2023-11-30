@@ -1,5 +1,4 @@
 "use client"; // if you use app dir, don't forget this line
-
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
