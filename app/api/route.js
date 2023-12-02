@@ -2,10 +2,10 @@ import mysql from "serverless-mysql";
 
 const db = mysql({
   config: {
-    host: "3.144.137.115",
-    database: "sensor",
-    user: "Erick",
-    password: "ERICKPI",
+    host: "db-web.c6bpgmk1qwyq.us-east-2.rds.amazonaws.com",
+    database: "proyecto",
+    user: "admin",
+    password: "lT62Ksq9HVXs5NIDQ5fM",
   },
 });
 
@@ -14,6 +14,20 @@ export async function GET(request) {
   if (pathname === "/api") {
     try {
       const results = await db.query("SELECT * FROM `datos`");
+      await db.end();
+      return new Response(JSON.stringify(results), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      return { error };
+    }
+  }
+
+  if (pathname === "/api/users") {
+    try {
+      const results = await db.query("SELECT * FROM `users`");
       await db.end();
       return new Response(JSON.stringify(results), {
         headers: {
