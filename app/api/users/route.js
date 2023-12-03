@@ -25,9 +25,10 @@ export async function GET(request) {
         },
       });
     } catch (error) {
-      return { error };
+      return new Response("Error", { status: 404 });
     }
   }
+
   return new Response("Not found", { status: 404 });
 }
 
@@ -51,7 +52,6 @@ export async function POST(request) {
 
       return Response.json({ name, user });
     } catch (error) {
-      console.log("error ->", error);
       return new Response("Not found", { status: 404 });
     }
   }

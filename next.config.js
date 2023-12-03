@@ -9,6 +9,14 @@ const nextConfig = {
       },
     ],
   },
+  webpack(webpackConfig) {
+    return {
+      ...webpackConfig,
+      optimization: {
+        minimize: false,
+      },
+    };
+  },
 };
 
 module.exports = nextConfig;

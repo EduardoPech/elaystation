@@ -11,19 +11,19 @@ const db = mysql({
 
 export async function GET(request) {
   const { pathname } = new URL(request.url);
-  if (pathname === "/api") {
-    try {
-      const results = await db.query("SELECT * FROM `datos`");
-      await db.end();
-      return new Response(JSON.stringify(results), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (error) {
-      return { error };
-    }
-  }
+  // if (pathname === "/api") {
+  //   try {
+  //     const results = await db.query("SELECT * FROM `datos`");
+  //     await db.end();
+  //     return new Response(JSON.stringify(results), {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //   } catch (error) {
+  //     return { error };
+  //   }
+  // }
 
   if (pathname === "/api/users") {
     try {
@@ -35,7 +35,7 @@ export async function GET(request) {
         },
       });
     } catch (error) {
-      return { error };
+      return new Response("Error", { status: 404 });
     }
   }
   return new Response("Not found", { status: 404 });
