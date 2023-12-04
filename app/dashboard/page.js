@@ -1,4 +1,8 @@
 import { AChart } from "../components/AChart";
+import { LineChartHumity } from "../components/charts/humity/LineChartHumity";
+import { LineChartTemperature } from "../components/charts/temperature/LineChartTemperature";
+import { LineChartAnemometer } from "../components/charts/anemometer/LineChartAnemometer";
+import { LineChartSoil } from "../components/charts/soil/LineChartSoil";
 
 export default function Dashboard() {
   return (
@@ -8,18 +12,18 @@ export default function Dashboard() {
       </h1>
       <div className="flex justify-center gap-10 mb-10">
         <div className="border border-gray shadow-md bg-white p-3">
-          <AChart />
+          <LineChartHumity />
         </div>
         <div className="border border-gray shadow-md bg-white p-3">
-          <AChart />
+          <LineChartTemperature />
         </div>
       </div>
       <div className="flex justify-center gap-10 mb-10">
         <div className="border border-gray shadow-md bg-white p-3">
-          <AChart />
+          <LineChartAnemometer />
         </div>
         <div className="border border-gray shadow-md bg-white p-3">
-          <AChart />
+          <LineChartSoil />
         </div>
       </div>
     </div>
