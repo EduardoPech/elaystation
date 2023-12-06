@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useState } from "react";
 
-export function LineChartHumity() {
-  const [data, setData] = useState([]);
+export function LineChartHumity({ data }) {
+  // const [data, setData] = useState([]);
 
   const generateData = () => {
     return {
@@ -26,19 +26,22 @@ export function LineChartHumity() {
   //   return () => clearInterval(interval);
   // });
 
-  useState(() => {
-    fetch("/api/temperature/10")
-      .then((response) => response.json())
-      .then((data) => {
-        const formatData = data.map((item) => {
-          return {
-            x: new Date(item.fecha_registro).getTime(),
-            y: item.humedad,
-          };
-        });
-        setData(formatData);
-      });
-  }, []);
+  // useState(() => {
+  //   const interval = setInterval(() => {
+  //     fetch("/api/temperature/10")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         const formatData = data.map((item) => {
+  //           return {
+  //             x: new Date(item.FechaRegistro).getTime(),
+  //             y: item.Humedad,
+  //           };
+  //         });
+  //         setData(formatData);
+  //       });
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const option = {
     title: {
@@ -69,8 +72,8 @@ export function LineChartHumity() {
       title: {
         text: "Humedad",
       },
-      min: 0,
-      max: 40,
+      min: 30,
+      max: 80,
     },
     stroke: {
       curve: "smooth",
@@ -85,14 +88,12 @@ export function LineChartHumity() {
   ];
 
   return (
-    <>
-      <ApexChart
-        type="line"
-        options={option}
-        series={series}
-        height={350}
-        width={600}
-      />
-    </>
+    <ApexChart
+      type="line"
+      options={option}
+      series={series}
+      height={350}
+      width={"100%"}
+    />
   );
 }

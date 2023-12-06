@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { Chart } from "./components/Chart";
-import { AChart } from "./components/AChart";
 import { Section } from "./components/Section";
 import { Vision } from "./components/Vision";
 import { OurTeam } from "./components/OurTeam";
@@ -13,10 +10,10 @@ export default function Home() {
     <>
       <Hero />
       <main className="container mx-auto">
+        <Sensors />
         <Section />
         <Vision />
         <OurTeam />
-        <Sensors />
       </main>
       <Footer />
     </>

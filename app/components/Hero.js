@@ -1,6 +1,17 @@
+"use client";
+
 import hero from "../assets/hero.jpeg";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export function Hero() {
+  const userCurrent = useSelector((state) => state.user.user);
+  const [isLogged, setIsLogged] = useState(!!userCurrent.id);
+
+  useEffect(() => {
+    setIsLogged(!!userCurrent.id);
+  }, [userCurrent]);
+
   return (
     <>
       <div id="hero" className="flex justify-center items-center flex-col">
@@ -18,12 +29,14 @@ export function Hero() {
                 meteorológicos en ElayStation. La información precisa que
                 necesitas para estar siempre preparado.
               </p>
-              <a
-                href="#"
-                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white hover:text-black"
-              >
-                Empezar
-              </a>
+              {!isLogged && (
+                <a
+                  href="/register"
+                  className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white hover:text-black"
+                >
+                  Regístrate
+                </a>
+              )}
             </div>
           </div>
         </div>

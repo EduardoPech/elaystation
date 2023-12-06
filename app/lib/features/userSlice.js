@@ -8,6 +8,7 @@ export const userSlice = createSlice({
       name: "",
       user: "",
     },
+    realTime: false,
   },
   reducers: {
     set: (state, action) => {
@@ -16,9 +17,12 @@ export const userSlice = createSlice({
     get: (state) => {
       return state.user;
     },
+    updateRealTime: (state, action) => {
+      state.realTime = action.payload;
+    },
   },
 });
 
-export const { set, get } = userSlice.actions;
+export const { set, get, updateRealTime } = userSlice.actions;
 
 export default userSlice.reducer;

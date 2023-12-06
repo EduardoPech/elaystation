@@ -3,25 +3,22 @@ import mysql from "serverless-mysql";
 
 const db = mysql({
   config: {
-    host: "db-web.c6bpgmk1qwyq.us-east-2.rds.amazonaws.com",
-    database: "proyecto",
-    user: "admin",
-    password: "lT62Ksq9HVXs5NIDQ5fM",
+    host: "18.216.32.82",
+    database: "Estacion",
+    user: "Erick",
+    password: "ERICKPI",
   },
+  library: require("mysql2"),
 });
 
 export async function GET(request, context) {
   const { pathname } = new URL(request.url);
   const count = context.params.count;
 
-  console.log("request.params ->", request);
-  console.log("count ->", count);
-  console.log("pathname ->", pathname);
-
   if (pathname === `/api/temperature/${count}`) {
     try {
       const results = await db.query(
-        "SELECT id, fecha_registro, temperatura, humedad FROM `DHT11` ORDER BY id DESC LIMIT " +
+        "SELECT id, FechaRegistro, Temperatura, Humedad, velocidad_viento, TemperaturaSuelo FROM `sensores` ORDER BY id DESC LIMIT " +
           count
       );
 
@@ -32,7 +29,6 @@ export async function GET(request, context) {
         },
       });
     } catch (error) {
-      console.log("error ->", error);
       return new Response("Error", { status: 404 });
     }
   }

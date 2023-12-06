@@ -45,7 +45,6 @@ export async function POST(request) {
 
       return new Response("Not data", { status: 404 });
     } catch (error) {
-      console.log("error ->", error);
       return new Response("Error", { status: 404 });
     }
   }

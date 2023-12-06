@@ -1,9 +1,13 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "./components/Header";
 import { Providers } from "./lib/provider";
 
 const inter = Inter({ subsets: ["latin"] });
+import dynamic from "next/dynamic";
+
+const Header = dynamic(() => import("./components/Header"), {
+  ssr: false,
+});
 
 export const metadata = {
   title: "Elaystation",

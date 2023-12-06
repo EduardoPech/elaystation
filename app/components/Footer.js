@@ -7,7 +7,7 @@ export function Footer() {
           <a href="https://example.com/" className="hover:underline">
             ELAYSTATION
           </a>
-          . All Rights Reserved.
+          . Todos los derechos reservados.
         </span>
       </div>
     </footer>

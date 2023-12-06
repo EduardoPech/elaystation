@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useState } from "react";
 
-export function LineChartTemperature() {
-  const [data, setData] = useState([]);
+export function LineChartTemperature({ data }) {
+  // const [data, setData] = useState([]);
 
   const generateData = () => {
     return {
@@ -17,28 +17,6 @@ export function LineChartTemperature() {
     const date = new Date(time);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   };
-
-  // useState(() => {
-  //   const interval = setInterval(() => {
-  //     setData((prev) => [...prev.slice(-10), generateData()]);
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // });
-
-  useState(() => {
-    fetch("/api/temperature/10")
-      .then((response) => response.json())
-      .then((data) => {
-        const formatData = data.map((item) => {
-          return {
-            x: new Date(item.fecha_registro).getTime(),
-            y: item.temperatura,
-          };
-        });
-        setData(formatData);
-      });
-  }, []);
 
   const option = {
     title: {
@@ -85,14 +63,12 @@ export function LineChartTemperature() {
   ];
 
   return (
-    <>
-      <ApexChart
-        type="line"
-        options={option}
-        series={series}
-        height={350}
-        width={600}
-      />
-    </>
+    <ApexChart
+      type="line"
+      options={option}
+      series={series}
+      height={350}
+      width={"100%"}
+    />
   );
 }

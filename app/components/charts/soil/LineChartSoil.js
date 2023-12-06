@@ -3,28 +3,11 @@ import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useState } from "react";
 
-export function LineChartSoil() {
-  const [data, setData] = useState([]);
-
-  const generateData = () => {
-    return {
-      x: new Date().getTime(),
-      y: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
-    };
-  };
-
+export function LineChartSoil({ data }) {
   const convertTime = (time) => {
     const date = new Date(time);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   };
-
-  useState(() => {
-    const interval = setInterval(() => {
-      setData((prev) => [...prev.slice(-10), generateData()]);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  });
 
   const option = {
     title: {
@@ -56,7 +39,7 @@ export function LineChartSoil() {
         text: "Temperatura",
       },
       min: 0,
-      max: 100,
+      max: 40,
     },
     stroke: {
       curve: "smooth",
@@ -71,14 +54,12 @@ export function LineChartSoil() {
   ];
 
   return (
-    <>
-      <ApexChart
-        type="line"
-        options={option}
-        series={series}
-        height={350}
-        width={600}
-      />
-    </>
+    <ApexChart
+      type="line"
+      options={option}
+      series={series}
+      height={350}
+      width={"100%"}
+    />
   );
 }
