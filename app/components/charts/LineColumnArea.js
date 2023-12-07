@@ -1,18 +1,9 @@
-"use client";
+"use client"; // if you use app dir, don't forget this line
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useState } from "react";
 
-export function LineChartTemperature({ data }) {
-  // const [data, setData] = useState([]);
-
-  const generateData = () => {
-    return {
-      x: new Date().getTime(),
-      y: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
-    };
-  };
-
+export function LineColumnArea({ data, seriesData }) {
   const convertTime = (time) => {
     const date = new Date(time);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -20,7 +11,7 @@ export function LineChartTemperature({ data }) {
 
   const option = {
     title: {
-      text: "Temperatura en tiempo real",
+      text: "Comparación en tiempo real",
       align: "center",
       margin: 25,
     },
@@ -36,6 +27,27 @@ export function LineChartTemperature({ data }) {
       toolbar: {
         show: false,
       },
+      stacked: false,
+    },
+    stroke: {
+      width: [0, 2, 5],
+      curve: "smooth",
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: "50%",
+      },
+    },
+    fill: {
+      opacity: [0.85, 0.25, 1],
+      gradient: {
+        inverseColors: false,
+        shade: "light",
+        type: "vertical",
+        opacityFrom: 0.85,
+        opacityTo: 0.55,
+        stops: [0, 100, 100, 100],
+      },
     },
     xaxis: {
       title: {
@@ -45,28 +57,18 @@ export function LineChartTemperature({ data }) {
     },
     yaxis: {
       title: {
-        text: "Temperatura",
+        text: "Viento Km/h - Humedad (%) - Temperatura (°C)",
       },
       min: 0,
-      max: 40,
-    },
-    stroke: {
-      curve: "smooth",
+      tickAmount: 20,
     },
   };
-
-  const series = [
-    {
-      name: "Temperatura",
-      data: data.map((item) => item.y),
-    },
-  ];
 
   return (
     <ApexChart
       type="line"
       options={option}
-      series={series}
+      series={seriesData}
       height={350}
       width={"100%"}
     />

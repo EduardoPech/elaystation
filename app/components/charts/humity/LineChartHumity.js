@@ -24,7 +24,7 @@ export function LineChartHumity({ data }) {
         },
       },
       toolbar: {
-        show: true,
+        show: false,
       },
     },
     xaxis: {
@@ -47,7 +47,8 @@ export function LineChartHumity({ data }) {
 
   const series = [
     {
-      name: "sensor",
+      name: "Humedad",
+      type: "column",
       data: data.map((item) => item.y),
     },
   ];

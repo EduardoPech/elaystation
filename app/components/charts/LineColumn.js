@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useState } from "react";
 
-export function LineChartSoil({ data }) {
+export function LineColumn({ data, seriesData }) {
   const convertTime = (time) => {
     const date = new Date(time);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -11,7 +11,7 @@ export function LineChartSoil({ data }) {
 
   const option = {
     title: {
-      text: "Temperatura de suelo en tiempo real",
+      text: "Comparación en tiempo real",
       align: "center",
       margin: 25,
     },
@@ -27,6 +27,30 @@ export function LineChartSoil({ data }) {
       toolbar: {
         show: false,
       },
+      stacked: false,
+    },
+    stroke: {
+      width: [0, 4],
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: "50%",
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      enabledOnSeries: [1],
+    },
+    fill: {
+      opacity: [0.85, 0.25, 1],
+      gradient: {
+        inverseColors: false,
+        shade: "light",
+        type: "vertical",
+        opacityFrom: 0.85,
+        opacityTo: 0.55,
+        stops: [0, 100, 100, 100],
+      },
     },
     xaxis: {
       title: {
@@ -34,30 +58,28 @@ export function LineChartSoil({ data }) {
       },
       categories: data.map((item) => convertTime(item.x)),
     },
-    yaxis: {
-      title: {
-        text: "Temperatura",
+    yaxis: [
+      {
+        title: {
+          text: "Velocidad de viento (K/H)",
+        },
+        min: 0,
+        tickAmount: 20,
       },
-      min: 0,
-      max: 40,
-    },
-    stroke: {
-      curve: "smooth",
-    },
+      {
+        opposite: true,
+        title: {
+          text: "Temperatura (°C)",
+        },
+      },
+    ],
   };
-
-  const series = [
-    {
-      name: "Temperatura del suelo",
-      data: data.map((item) => item.y),
-    },
-  ];
 
   return (
     <ApexChart
       type="line"
       options={option}
-      series={series}
+      series={seriesData}
       height={350}
       width={"100%"}
     />

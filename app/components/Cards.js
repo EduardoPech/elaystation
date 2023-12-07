@@ -55,29 +55,29 @@ export function Cards() {
   return (
     <section id="sensor" className="bg-gray-100">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
-        <div className="grid gap-8 mb-6 grid-cols-1 md:grid-cols-4">
+        <div className="grid gap-8 mb-6 grid-cols-1 md:grid-cols-4 ">
           <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Humedad</div>
-              <p className="text-gray-700 text-5xl">{humidity}</p>
+              <p className="text-gray-700 text-5xl">{humidity}%</p>
             </div>
           </div>
           <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Temperatura</div>
-              <p className="text-gray-700 text-5xl">{temperature}</p>
+              <p className="text-gray-700 text-5xl">{temperature} ºC</p>
             </div>
           </div>
           <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Velocidad del viento</div>
-              <p className="text-gray-700 text-5xl">{wind}</p>
+              <p className="text-gray-700 text-5xl">{wind} Km/h</p>
             </div>
           </div>
           <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Temperatura de suelo</div>
-              <p className="text-gray-700 text-5xl">{soilTemperature}</p>
+              <p className="text-gray-700 text-5xl">{soilTemperature} ºC</p>
             </div>
           </div>
         </div>

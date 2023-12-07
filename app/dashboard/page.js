@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
 import { Cards } from "../components/Cards";
+import { LineColumnArea } from "../components/charts/LineColumnArea";
+import { Multiple } from "../components/charts/Multiple";
+import { LineColumn } from "../components/charts/LineColumn";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -19,6 +22,9 @@ export default function Dashboard() {
   const [humidity, setHumidity] = useState(0);
   const [temperature, setTemperature] = useState(0);
   const [wind, setWind] = useState(0);
+  const [serie1, setSerie1] = useState(null);
+  const [serie2, setSerie2] = useState(null);
+  const [serie3, setSerie3] = useState(null);
   const [soilTemperature, setSoilTemperature] = useState(0);
   const [realTime, setRealTime] = useState(realTimeState);
 
@@ -32,7 +38,7 @@ export default function Dashboard() {
   }, [realTimeState]);
 
   const getData = () => {
-    fetch("/api/temperature/35")
+    fetch("/api/temperature/15")
       .then((res) => res.json())
       .then((data) => {
         console.log("data ->", data);
@@ -64,6 +70,68 @@ export default function Dashboard() {
           };
         });
         setSoilTemperature(formatDataSoilTemperature);
+
+        const formatDataSerie1 = [
+          {
+            name: "Humedad",
+            type: "column",
+            data: formatDataHumity.map((item) => item.y),
+          },
+          {
+            name: "Temperatura",
+            type: "area",
+            data: formatDataTemperature.map((item) => item.y),
+          },
+          {
+            name: "Velocidad del Viento",
+            type: "line",
+            data: formatDataWind.map((item) => item.y),
+          },
+          {
+            name: "Temperatura suelo",
+            type: "column",
+            data: formatDataSoilTemperature.map((item) => item.y),
+          },
+        ];
+        setSerie1(formatDataSerie1);
+
+        const formatDataSerie2 = [
+          {
+            name: "Humedad",
+            type: "column",
+            data: formatDataHumity.map((item) => item.y),
+          },
+          {
+            name: "Temperatura",
+            type: "column",
+            data: formatDataTemperature.map((item) => item.y),
+          },
+          {
+            name: "Velocidad del Viento",
+            type: "line",
+            data: formatDataWind.map((item) => item.y),
+          },
+          {
+            name: "Temperatura suelo",
+            type: "line",
+            data: formatDataSoilTemperature.map((item) => item.y),
+          },
+        ];
+        setSerie2(formatDataSerie2);
+
+        const formatDataSerie3 = [
+          {
+            name: "Temperatura",
+            type: "column",
+            data: formatDataTemperature.map((item) => item.y),
+          },
+          {
+            name: "Velocidad del Viento",
+            type: "line",
+            data: formatDataWind.map((item) => item.y),
+          },
+        ];
+        setSerie3(formatDataSerie3);
       })
       .catch((error) => console.log("error ->", error));
   };
@@ -116,6 +184,33 @@ export default function Dashboard() {
         <div className="border border-gray shadow-md bg-white p-3 mb-3 md:mb-0 w-full">
           {soilTemperature ? (
             <LineChartSoil data={soilTemperature} />
+          ) : (
+            <Loading />
+          )}
+        </div>
+      </div>
+      <div className="md:flex justify-center gap-10 mb-10 md:w-full px-10">
+        <div className="border border-gray shadow-md bg-white p-3 mb-3 md:mb-0 w-full">
+          {wind && serie1 ? (
+            <LineColumnArea data={humidity} seriesData={serie1} />
+          ) : (
+            <Loading />
+          )}
+        </div>
+      </div>
+      <div className="md:flex justify-center gap-10 mb-10 md:w-full px-10">
+        <div className="border border-gray shadow-md bg-white p-3 mb-3 md:mb-0 w-full">
+          {wind && serie2 ? (
+            <Multiple data={humidity} seriesData={serie2} />
+          ) : (
+            <Loading />
+          )}
+        </div>
+      </div>
+      <div className="md:flex justify-center gap-10 mb-10 md:w-full px-10">
+        <div className="border border-gray shadow-md bg-white p-3 mb-3 md:mb-0 w-full">
+          {wind && serie3 ? (
+            <LineColumn data={humidity} seriesData={serie3} />
           ) : (
             <Loading />
           )}

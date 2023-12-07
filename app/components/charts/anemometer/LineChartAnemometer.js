@@ -28,6 +28,23 @@ export function LineChartAnemometer({ data }) {
         show: false,
       },
     },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    fill: {
+      opacity: [0.85, 0.25, 1],
+      gradient: {
+        inverseColors: false,
+        shade: "light",
+        type: "vertical",
+        opacityFrom: 0.85,
+        opacityTo: 0.55,
+        stops: [0, 100, 100, 100],
+      },
+    },
     xaxis: {
       title: {
         text: "Tiempo",
@@ -49,7 +66,8 @@ export function LineChartAnemometer({ data }) {
 
   const series = [
     {
-      name: "sensor",
+      name: "Velocidad de viento",
+      type: "area",
       data: data.map((item) => item.y),
     },
   ];
