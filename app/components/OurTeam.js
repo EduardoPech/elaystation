@@ -53,7 +53,7 @@ export function OurTeam() {
             </a>
             <div className="basis-2/3 p-5">
               <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                <a href="#">Iván Mauricio Sansores Iuit</a>
+                <a href="#">Iván Sansores</a>
               </h3>
               <span className="text-gray-500 dark:text-gray-400">
                 Desarrollador Web
