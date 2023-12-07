@@ -22,7 +22,7 @@ export function Hero() {
           <div className="w-full h-full flex justify-center items-center backdrop-brightness-50">
             <div className="text-center">
               <h1 className="max-w-4xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">
-                Tu Portal Metereológico en Línea
+                Tu Portal Meteorológico en Línea
               </h1>
               <p className="max-w-4xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl">
                 Explora pronósticos detallados, datos en tiempo real y análisis

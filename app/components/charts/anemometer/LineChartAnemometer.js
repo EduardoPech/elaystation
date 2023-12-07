@@ -42,9 +42,9 @@ export function LineChartAnemometer({ data }) {
       max: 20,
       tickAmount: 20,
     },
-    stroke: {
-      curve: "smooth",
-    },
+    // stroke: {
+    //   curve: "smooth",
+    // },
   };
 
   const series = [

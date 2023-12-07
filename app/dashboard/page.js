@@ -5,10 +5,11 @@ import { LineChartTemperature } from "../components/charts/temperature/LineChart
 import { LineChartAnemometer } from "../components/charts/anemometer/LineChartAnemometer";
 import { LineChartSoil } from "../components/charts/soil/LineChartSoil";
 import { Switch } from "../components/Switch";
-import { updateRealTime } from "../lib/features/userSlice";
+import { set, updateRealTime } from "../lib/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
+import { Cards } from "../components/Cards";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [realTime, setRealTime] = useState(realTimeState);
 
   useEffect(() => {
+    setRealTime(realTimeState);
     if (realTimeState) {
       setSeconds(1000);
     } else {
@@ -30,7 +32,7 @@ export default function Dashboard() {
   }, [realTimeState]);
 
   const getData = () => {
-    fetch("/api/temperature/10")
+    fetch("/api/temperature/35")
       .then((res) => res.json())
       .then((data) => {
         console.log("data ->", data);
@@ -85,12 +87,16 @@ export default function Dashboard() {
 
   return (
     <div className="w-full bg-gray-100 h-full">
-      <h1 className="text-center font-bold text-3xl text-gray-600 py-5 mb-5">
+      <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 text-center pt-10">
         Gráficas
       </h1>
-      <div className="flex justify-center mb-10">
+      <p className="font-light text-gray-800 mb-5 text-center">
+        Datos climáticos en tiempo real y análisis meteorológicos
+      </p>
+      <div className="flex justify-center mb-5">
         <Switch label="Tiempo real" checked={realTime} onChange={onChange} />
       </div>
+      <Cards />
       <div className="md:flex justify-center gap-10 mb-10 md:w-full px-10">
         <div className="border border-gray shadow-md bg-white p-3 mb-3 md:mb-0 w-full">
           {humidity ? <LineChartHumity data={humidity} /> : <Loading />}

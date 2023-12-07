@@ -33,7 +33,7 @@ export function OurTeam() {
                 <a href="#">Erick Hoil</a>
               </h3>
               <span className="text-gray-500 dark:text-gray-400">
-                Ceo y creador de Elaystation
+                CEO y creador de Elaystation
               </span>
               <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
                 Encargado del desarrollo y programación para el funcionamiento
@@ -82,7 +82,7 @@ export function OurTeam() {
                 Servicios en la nube(AWS)
               </span>
               <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                Encargado de los servicios en la nube y desarollo.
+                Encargado de los servicios en la nube y desarrollo.
               </p>
             </div>
           </div>
@@ -103,8 +103,8 @@ export function OurTeam() {
                 Marketing y Ventas
               </span>
               <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                Marketing y ventas, programación, y con experiencia con el
-                lenguaje de Python.
+                Marketing, ventas, programación y con experiencia en el lenguaje
+                de Python.
               </p>
             </div>
           </div>

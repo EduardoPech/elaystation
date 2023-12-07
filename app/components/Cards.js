@@ -4,7 +4,7 @@ import { Switch } from "./Switch";
 import { get, updateRealTime } from "../lib/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-export function Sensors() {
+export function Cards() {
   const dispatch = useDispatch();
   const realTimeState = useSelector((state) => state.user.realTime);
   const [humidity, setHumidity] = useState(0);
@@ -53,40 +53,31 @@ export function Sensors() {
   };
 
   return (
-    <section id="sensor" className="bg-white">
+    <section id="sensor" className="bg-gray-100">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
-        <div className="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-            Sensores
-          </h2>
-          <p className="font-light text-gray-800 mb-5">
-            Datos climáticos en tiempo real y análisis meteorológicos
-          </p>
-          <Switch label="Tiempo real" checked={realTime} onChange={onChange} />
-        </div>
         <div className="grid gap-8 mb-6 grid-cols-1 md:grid-cols-4">
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Humedad</div>
-              <p className="text-gray-700 text-5xl">{humidity}%</p>
+              <p className="text-gray-700 text-5xl">{humidity}</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Temperatura</div>
-              <p className="text-gray-700 text-5xl">{temperature} ºC</p>
+              <p className="text-gray-700 text-5xl">{temperature}</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Velocidad del viento</div>
-              <p className="text-gray-700 text-5xl">{wind} Km/h</p>
+              <p className="text-gray-700 text-5xl">{wind}</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-xl mb-2">Temperatura de suelo</div>
-              <p className="text-gray-700 text-5xl">{soilTemperature} ºC</p>
+              <p className="text-gray-700 text-5xl">{soilTemperature}</p>
             </div>
           </div>
         </div>
