@@ -110,7 +110,7 @@ export default function Header() {
                       href="/register"
                       className="block px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
                     >
-                      Registrarse
+                      Suscripción
                     </a>
                   </div>
                 )}
