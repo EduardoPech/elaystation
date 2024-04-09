@@ -1,14 +1,9 @@
 "use client"; // if you use app dir, don't forget this line
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useState } from "react";
+import { convertTime, formatHour } from "../../utils/utils";
 
-export function LineColumn({ data, seriesData }) {
-  const convertTime = (time) => {
-    const date = new Date(time);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  };
-
+export function LineColumn({ data, seriesData, typeDate }) {
   const option = {
     title: {
       text: "Comparación en tiempo real",
@@ -25,7 +20,7 @@ export function LineColumn({ data, seriesData }) {
         },
       },
       toolbar: {
-        show: false,
+        show: true,
       },
       stacked: false,
     },
@@ -56,7 +51,18 @@ export function LineColumn({ data, seriesData }) {
       title: {
         text: "Tiempo",
       },
-      categories: data.map((item) => convertTime(item.x)),
+      categories: typeDate === 'hour' ? data.map((item) => convertTime(item.x)) : data.map((item) => item.x),
+      labels: {
+        formatter: (value) => {
+          if (typeDate === 'hour') {
+            return formatHour(value);
+          }
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });;
+          return `${day} ${month}`;
+        }
+      }
     },
     yaxis: [
       {

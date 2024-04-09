@@ -1,14 +1,9 @@
 "use client"; // if you use app dir, don't forget this line
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useState } from "react";
+import { convertTime, formatHour } from "../../../utils/utils";
 
-export function LineChartSoil({ data }) {
-  const convertTime = (time) => {
-    const date = new Date(time);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  };
-
+export function LineChartSoil({ data, typeDate }) {
   const option = {
     title: {
       text: "Temperatura de suelo en tiempo real",
@@ -25,14 +20,25 @@ export function LineChartSoil({ data }) {
         },
       },
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     xaxis: {
       title: {
         text: "Tiempo",
       },
-      categories: data.map((item) => convertTime(item.x)),
+      categories: typeDate === 'hour' ? data.map((item) => convertTime(item.x)) : data.map((item) => item.x),
+      labels: {
+        formatter: (value) => {
+          if (typeDate === 'hour') {
+            return formatHour(value);
+          }
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });;
+          return `${day} ${month}`;
+        }
+      }
     },
     yaxis: {
       title: {

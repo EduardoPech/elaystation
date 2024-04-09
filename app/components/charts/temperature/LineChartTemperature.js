@@ -1,23 +1,9 @@
 "use client";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useState } from "react";
+import { convertTime, formatHour } from "../../../utils/utils";
 
-export function LineChartTemperature({ data }) {
-  // const [data, setData] = useState([]);
-
-  const generateData = () => {
-    return {
-      x: new Date().getTime(),
-      y: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
-    };
-  };
-
-  const convertTime = (time) => {
-    const date = new Date(time);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  };
-
+export function LineChartTemperature({ data, typeDate }) {
   const option = {
     title: {
       text: "Temperatura en tiempo real",
@@ -34,14 +20,25 @@ export function LineChartTemperature({ data }) {
         },
       },
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     xaxis: {
       title: {
         text: "Tiempo",
       },
-      categories: data.map((item) => convertTime(item.x)),
+      categories: typeDate === 'hour' ? data.map((item) => convertTime(item.x)) : data.map((item) => item.x),
+      labels: {
+        formatter: (value) => {
+          if (typeDate === 'hour') {
+            return formatHour(value);
+          }
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });;
+          return `${day} ${month}`;
+        }
+      }
     },
     yaxis: {
       title: {

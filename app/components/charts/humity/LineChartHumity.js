@@ -1,13 +1,9 @@
 "use client";
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { convertTime, formatHour } from "../../../utils/utils";
 
-export function LineChartHumity({ data }) {
-  const convertTime = (time) => {
-    const date = new Date(time);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  };
-
+export function LineChartHumity({ data, typeDate }) {
   const option = {
     title: {
       text: "Humedad en tiempo real",
@@ -24,14 +20,25 @@ export function LineChartHumity({ data }) {
         },
       },
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     xaxis: {
       title: {
         text: "Tiempo",
       },
-      categories: data.map((item) => convertTime(item.x)),
+      categories: typeDate === 'hour' ? data.map((item) => convertTime(item.x)) : data.map((item) => item.x),
+      labels: {
+        formatter: (value) => {
+          if (typeDate === 'hour') {
+            return formatHour(value);
+          }
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });;
+          return `${day} ${month}`;
+        }
+      }
     },
     yaxis: {
       title: {
@@ -40,9 +47,6 @@ export function LineChartHumity({ data }) {
       min: 0,
       max: 60,
     },
-    // stroke: {
-    //   curve: "smooth",
-    // },
   };
 
   const series = [

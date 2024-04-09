@@ -92,10 +92,10 @@ export default function Header() {
                 Equipo
               </a>
               <a
-                href="/#sensor"
+                href="/#offer"
                 className="block p-3 md:mr-5 font-medium hover:text-gray-900"
               >
-                Sensor
+                App
               </a>
               <div>
                 {!isLogged && (

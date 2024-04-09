@@ -1,14 +1,9 @@
 "use client"; // if you use app dir, don't forget this line
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-import { useState } from "react";
+import { convertTime, formatHour } from "../../../utils/utils";
 
-export function LineChartAnemometer({ data }) {
-  const convertTime = (time) => {
-    const date = new Date(time);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  };
-
+export function LineChartAnemometer({ data, typeDate }) {
   const option = {
     title: {
       text: "Velocidad de viento en tiempo real",
@@ -25,7 +20,7 @@ export function LineChartAnemometer({ data }) {
         },
       },
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     dataLabels: {
@@ -49,7 +44,18 @@ export function LineChartAnemometer({ data }) {
       title: {
         text: "Tiempo",
       },
-      categories: data.map((item) => convertTime(item.x)),
+      categories: typeDate === 'hour' ? data.map((item) => convertTime(item.x)) : data.map((item) => item.x),
+      labels: {
+        formatter: (value) => {
+          if (typeDate === 'hour') {
+            return formatHour(value);
+          }
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString('default', { month: 'short' });;
+          return `${day} ${month}`;
+        }
+      }
     },
     yaxis: {
       title: {
@@ -59,9 +65,6 @@ export function LineChartAnemometer({ data }) {
       max: 20,
       tickAmount: 20,
     },
-    // stroke: {
-    //   curve: "smooth",
-    // },
   };
 
   const series = [

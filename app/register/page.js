@@ -171,6 +171,10 @@ export default function Register() {
                     </span>
                   </div>
                 )}
+                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+                <h2 className="text-center text-lg font-bold leading-9 tracking-tight text-gray-900">
+                  Datos de pago
+                </h2>
                 <div id="credit-card mt-2">
                   <div className="mt-2">
                     <label htmlFor="cc-number" className="block text-sm font-medium text-gray-900">Número de tarjeta</label>
@@ -209,12 +213,12 @@ export default function Register() {
           <div className="">
             <div className="max-w-sm shadow-lg p-10">
               <h2>
-                Resumen de tu suscripción
+                Resumen de tu compra
               </h2>
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6 mt-8">
                 <div className="flex justify-between text-base font-medium text-gray-900">
-                  <p>Subtotal</p>
-                  <p>$59.00 MXN</p>
+                  <p>Total</p>
+                  <p>$2099.00 MXN</p>
                 </div>
                 <p className="mt-0.5 text-sm text-gray-500">IVA incluído</p>
                 <div className="mt-6">

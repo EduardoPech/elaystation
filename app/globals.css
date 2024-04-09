@@ -35,3 +35,13 @@ body {
   background-color: var(--fallback-n, oklch(var(--n) / var(--tw-bg-opacity)));
   --tw-bg-opacity: 0.5;
 }
+
+input[type="radio"]:checked + label span {
+  --tw-border-opacity: 1;
+    border-color: green;
+    --tw-bg-opacity: 1;
+    background-color: green;
+    --tw-shadow: inset 0 0px 0px 3.5px #E7E7FF;
+    --tw-shadow-colored: inset 0 0px 0px 3.5px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
