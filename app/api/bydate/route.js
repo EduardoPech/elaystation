@@ -3,7 +3,7 @@ import mysql from "serverless-mysql";
 
 const db = mysql({
   config: {
-    host: "3.22.185.247",
+    host: "ec2-3-145-3-82.us-east-2.compute.amazonaws.com",
     database: "Estacion",
     user: "Erick",
     password: "ERICKPI",
