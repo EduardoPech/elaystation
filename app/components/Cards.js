@@ -1,7 +1,6 @@
 "use client";
-import { use, useEffect, useState } from "react";
-import { Switch } from "./Switch";
-import { get, updateRealTime } from "../lib/features/userSlice";
+import { useEffect, useState } from "react";
+import { updateRealTime } from "../lib/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Cards() {
@@ -32,7 +31,9 @@ export function Cards() {
         setWind(data[0].velocidad_viento);
         setSoilTemperature(data[0].TemperaturaSuelo);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   useEffect(() => {

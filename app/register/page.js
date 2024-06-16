@@ -171,7 +171,7 @@ export default function Register() {
                     </span>
                   </div>
                 )}
-                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+                <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
                 <h2 className="text-center text-lg font-bold leading-9 tracking-tight text-gray-900">
                   Datos de pago
                 </h2>

@@ -32,7 +32,7 @@ export default function Dashboard() {
   useEffect(() => {
     setRealTime(realTimeState);
     if (realTimeState) {
-      setSeconds(1000);
+      setSeconds(2000);
     } else {
       setSeconds(hour);
     }
@@ -142,11 +142,14 @@ export default function Dashboard() {
         ];
         setSerie3(formatDataSerie3);
       })
-      .catch((error) => console.log("error ->", error));
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeDate]);
 
   useEffect(() => {
@@ -155,6 +158,7 @@ export default function Dashboard() {
     }, seconds);
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   const onChange = () => {
@@ -181,8 +185,8 @@ export default function Dashboard() {
                 <div className="flex items-center">
                   <input id="hour" type="radio" name="typeDate" 
                     className="hidden checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                    value="hour" checked={ typeDate === 'hour'} onClick={() => setTypeDate('hour')} />
-                  <label for="hour" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
+                    value="hour" checked={ typeDate === 'hour'} onClick={() => setTypeDate('hour')} onChange={() => setTypeDate('hour')} />
+                  <label htmlFor="hour" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
                     <span className="border border-gray-300  rounded-full mr-2 w-4 h-4"></span> Horas 
                   </label>
                 </div>
@@ -191,8 +195,8 @@ export default function Dashboard() {
                 <div className="flex items-center">
                   <input id="days" type="radio" name="typeDate"
                     className="hidden checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                    value="days" checked={ typeDate === 'days'} onClick={() => setTypeDate('days')} />
-                  <label for="days" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
+                    value="days" checked={ typeDate === 'days'} onClick={() => setTypeDate('days')} onChange={() => setTypeDate('days')} />
+                  <label htmlFor="days" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
                     <span className="border border-gray-300  rounded-full mr-2 w-4 h-4"></span> Días
                   </label>
                 </div>

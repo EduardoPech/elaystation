@@ -32,7 +32,9 @@ export function Sensors() {
         setWind(data[0].velocidad_viento);
         setSoilTemperature(data[0].TemperaturaSuelo);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        throw new Error(error);
+      });
   };
 
   useEffect(() => {

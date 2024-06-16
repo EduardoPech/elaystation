@@ -1,8 +1,5 @@
-import { Inter } from "next/font/google";
 import { Providers } from "../lib/provider";
 import { Aside } from "../components/Aside";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Layout({ children }) {
   return (

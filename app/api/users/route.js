@@ -1,15 +1,6 @@
 export const dynamic = "force-dynamic";
-import mysql from "serverless-mysql";
+import { dbUsers as db } from "../dbClient.js";
 import bcrypt from "bcrypt";
-
-const db = mysql({
-  config: {
-    host: "db-web.c6bpgmk1qwyq.us-east-2.rds.amazonaws.com",
-    database: "proyecto",
-    user: "admin",
-    password: "lT62Ksq9HVXs5NIDQ5fM",
-  },
-});
 
 export async function GET(request) {
   const { pathname } = new URL(request.url);

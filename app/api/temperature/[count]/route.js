@@ -1,15 +1,5 @@
 export const dynamic = "force-dynamic";
-import mysql from "serverless-mysql";
-
-const db = mysql({
-  config: {
-    host: "ec2-3-145-3-82.us-east-2.compute.amazonaws.com",
-    database: "Estacion",
-    user: "Erick",
-    password: "ERICKPI",
-  },
-  library: require("mysql2"),
-});
+import { dbSensors as db } from "../../dbClient.js";
 
 export async function GET(request, context) {
   const { pathname } = new URL(request.url);

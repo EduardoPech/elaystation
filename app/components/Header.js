@@ -37,7 +37,7 @@ export default function Header() {
           href="/"
           className="flex items-center mb-md-4 font-medium text-gray-900 title-font md:mb-0"
         >
-          <Image src={logo} alt="logo" className="w-auto h-10" />
+          <Image src={logo} alt="logo" className="w-auto h-10" priority />
         </a>
         {pathName !== "/dashboard" && (
           <>
@@ -52,7 +52,6 @@ export default function Header() {
               <span className="sr-only">Open main menu</span>
               <svg
                 className="w-5 h-5"
-                ariaHidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 17 14"
