@@ -5,7 +5,7 @@ import { LineChartTemperature } from "../components/charts/temperature/LineChart
 import { LineChartAnemometer } from "../components/charts/anemometer/LineChartAnemometer";
 import { LineChartSoil } from "../components/charts/soil/LineChartSoil";
 import { Switch } from "../components/Switch";
-import { set, updateRealTime } from "../lib/features/userSlice";
+import { updateRealTime } from "../lib/features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
@@ -13,6 +13,7 @@ import { Cards } from "../components/Cards";
 import { LineColumnArea } from "../components/charts/LineColumnArea";
 import { Multiple } from "../components/charts/Multiple";
 import { LineColumn } from "../components/charts/LineColumn";
+import { Radio } from "../components/Radio";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -180,28 +181,7 @@ export default function Dashboard() {
         </div>
         <div>
           <div className="flex justify-center">
-            <ul className="flex flex-col sm:flex-row">
-              <li className="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium bg-white border text-gray-600 -mt-px first:rounded-t-full first:mt-0 last:rounded-b-full sm:-ml-px sm:mt-0 sm:first:rounded-tr-none sm:first:rounded-bl-full sm:last:rounded-bl-none sm:last:rounded-tr-full ">
-                <div className="flex items-center">
-                  <input id="hour" type="radio" name="typeDate" 
-                    className="hidden checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                    value="hour" checked={ typeDate === 'hour'} onClick={() => setTypeDate('hour')} onChange={() => setTypeDate('hour')} />
-                  <label htmlFor="hour" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
-                    <span className="border border-gray-300  rounded-full mr-2 w-4 h-4"></span> Horas 
-                  </label>
-                </div>
-              </li>
-              <li className="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-full first:mt-0 last:rounded-b-full sm:-ml-px sm:mt-0 sm:first:rounded-tr-none sm:first:rounded-bl-full sm:last:rounded-bl-none sm:last:rounded-tr-full ">
-                <div className="flex items-center">
-                  <input id="days" type="radio" name="typeDate"
-                    className="hidden checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                    value="days" checked={ typeDate === 'days'} onClick={() => setTypeDate('days')} onChange={() => setTypeDate('days')} />
-                  <label htmlFor="days" className="flex items-center cursor-pointer text-gray-600 text-sm font-normal">
-                    <span className="border border-gray-300  rounded-full mr-2 w-4 h-4"></span> Días
-                  </label>
-                </div>
-              </li>
-            </ul>
+            <Radio typeDate={typeDate} setTypeDate={setTypeDate} />
           </div>
         </div>
       </div>
