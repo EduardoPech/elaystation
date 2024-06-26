@@ -14,6 +14,9 @@ import { LineColumnArea } from "../components/charts/LineColumnArea";
 import { Multiple } from "../components/charts/Multiple";
 import { LineColumn } from "../components/charts/LineColumn";
 import { Radio } from "../components/Radio";
+import { alertMixed } from "../utils/logicAlerts";
+import { toast, Bounce } from "react-toastify";
+
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -161,6 +164,24 @@ export default function Dashboard() {
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
+
+  useEffect(() => {
+    if(temperature && humidity && soilTemperature && wind){
+      const alert = alertMixed(temperature[temperature.length - 1].y, humidity[humidity.length - 1].y, soilTemperature[soilTemperature.length - 1].y, wind[wind.length - 1].y);
+      toast.error(`Alerta: ${alert}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+
+      });
+    }
+  }, [temperature, humidity, soilTemperature, wind]);
 
   const onChange = () => {
     setRealTime(!realTime);
