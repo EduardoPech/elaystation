@@ -57,34 +57,70 @@ function alertaVelocidadViento(velocidad) {
 // Función combinada para alertas de riego
 export function alertMixed(temperaturaAire, humedadSuelo, temperaturaSuelo, velocidadViento) {
     if (temperaturaAire >= TEMP_CALIENTE && humedadSuelo <= HUM_BAJA && velocidadViento >= VEL_ALTA) {
-        return "Riego Abundante y Frecuente";
+        return {
+            message: "Riego Abundante y Frecuente",
+            icon: "info",
+            ruleMessage: "Temperatura del aire alta, humedad del suelo baja y velocidad del viento alta",
+        };
     }
     if ((temperaturaAire >= TEMP_CALIENTE && humedadSuelo <= HUM_BAJA) || 
     (temperaturaSuelo >= TEMP_SUELO_CALIENTE && humedadSuelo <= HUM_BAJA)) {
-        return "Riego Inmediato y Abundante";
+        return {
+            message: "Riego Inmediato y Abundante",
+            icon: "info",
+            ruleMessage: "Temperatura del aire alta y humedad del suelo baja",
+        }
     }
     if (temperaturaAire >= TEMP_CALIENTE && velocidadViento >= VEL_ALTA) {
-        return "Evitar Riego";
+        return {
+            message: "Evitar Riego",
+            icon: "warning",
+            ruleMessage: "Temperatura del aire alta y velocidad del viento alta",
+        }
     }
     if (humedadSuelo <= HUM_BAJA && (velocidadViento >= VEL_MEDIA && velocidadViento <= VEL_ALTA)) {
-        return "Riego Frecuente";
+        return {
+            message: "Riego Frecuente",
+            icon: "info",
+            ruleMessage: "Humedad del suelo baja y velocidad del viento media-alta",
+        }
     }
     if (humedadSuelo >= HUM_ALTA && (velocidadViento >= VEL_BAJA && velocidadViento <= VEL_MEDIA )) {
-        return "Riego Ligero Recomendado";
+        return {
+            message: "Riego Ligero Recomendado",
+            icon: "info",
+            ruleMessage: "Humedad del suelo alta y velocidad del viento baja-media",
+        };
     }
     if ((temperaturaAire => TEMP_FRIO && temperaturaAire <= TEMP_TEMPLADO) && humedadSuelo >= HUM_ALTA) {
-        return "Riego Moderado Sugerido";
+        return {
+            message: "Riego Moderado Sugerido",
+            icon: "info",
+            ruleMessage: "Temperatura del aire templada y humedad del suelo alta",
+        };
     }
     if (temperaturaSuelo >= TEMP_SUELO_CALIENTE && humedadSuelo >= HUM_ALTA) {
-        return "Monitoreo del Suelo Sugerido, Riego Ligero si es necesario";
+        return {
+            message: "Monitoreo del Suelo Sugerido, Riego Ligero si es necesario",
+            icon: "info",
+            ruleMessage: "Temperatura del suelo alta y humedad del suelo alta",
+        };
     }
     if (velocidadViento > VEL_ALTA && humedadSuelo > HUM_ALTA) {
-        return "Evitar Riego, Posible Pérdida por Evaporación";
+        return {
+            message: "Evitar Riego, Posible Pérdida por Evaporación",
+            icon: "info",
+            ruleMessage: "Velocidad del viento alta y humedad del suelo alta",
+        };
     }
     if (temperaturaAire >= TEMP_CALIENTE && humedadSuelo >= HUM_ALTA && (velocidadViento >= VEL_BAJA && velocidadViento <= VEL_MEDIA)) {
-        return "Riego Moderado para Balancear Pérdida de Agua";
+        return {
+            message: "Riego Moderado para Balancear Pérdida de Agua",
+            icon: "info",
+            ruleMessage: "Temperatura del aire alta, humedad del suelo alta y velocidad del viento baja-media",
+        };
     }
     
     // Si no se cumple ninguna condición específica, devolver una alerta general
-    return "Revisar condiciones individualmente";
+    return null;
 }

@@ -1,15 +1,18 @@
 "use client";
 import logo from "../assets/logo.png";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { set } from "../lib/features/userSlice";
 import { usePathname } from "next/navigation";
+import { Notifications } from "./Notifications";
 
 export default function Header() {
   const path = usePathname();
   const userCurrent = useSelector((state) => state.user.user);
+  const alerts = useSelector((state) => state.alert.alerts);
+  const [listAlerts, setListAlerts] = useState(alerts);
   const [isLogged, setIsLogged] = useState(!!userCurrent.id);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pathName, setPathName] = useState("");
@@ -29,6 +32,10 @@ export default function Header() {
   useEffect(() => {
     setIsLogged(!!userCurrent.id);
   }, [userCurrent]);
+
+  useEffect(() => {
+    setListAlerts(alerts);
+  }, [alerts]);
 
   return (
     <header className="w-full text-gray-700 bg-white shadow-sm body-font">
@@ -136,7 +143,12 @@ export default function Header() {
         )}
 
         {isLogged && pathName === "/dashboard" && (
-          <div>Bienvenido {userCurrent.name}</div>
+          <>
+            <div className="flex gap-2 relative">
+            <Notifications listAlerts={listAlerts} />
+              {userCurrent.name}
+            </div>
+          </>
         )}
       </div>
     </header>

@@ -10,6 +10,7 @@ export function Cards() {
   const [temperature, setTemperature] = useState(0);
   const [wind, setWind] = useState(0);
   const [soilTemperature, setSoilTemperature] = useState(0);
+  const [uv, setUv] = useState(0);
   const [realTime, setRealTime] = useState(false);
   const hour = 3600000;
   const [seconds, setSeconds] = useState(hour);
@@ -30,6 +31,7 @@ export function Cards() {
         setTemperature(data[0].Temperatura);
         setWind(data[0].velocidad_viento);
         setSoilTemperature(data[0].TemperaturaSuelo);
+        setUv(data[0].uv);
       })
       .catch((error) => {
         throw new Error(error);
@@ -55,30 +57,36 @@ export function Cards() {
 
   return (
     <section id="sensor" className="bg-gray-100">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
-        <div className="grid gap-8 mb-6 grid-cols-1 md:grid-cols-4 ">
-          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      <div className="py-8 mx-auto lg:py-16 lg:px-10">
+        <div className="grid gap-8 mb-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 justify-items-stretch">
+          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
-              <div className="font-bold text-xl mb-2">Humedad</div>
+              <div className="font-bold text-lg mb-2">Humedad</div>
               <p className="text-gray-700 text-5xl">{humidity}%</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
-              <div className="font-bold text-xl mb-2">Temperatura</div>
+              <div className="font-bold text-lg mb-2">Temperatura</div>
               <p className="text-gray-700 text-5xl">{temperature} ºC</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
-              <div className="font-bold text-xl mb-2">Velocidad del viento</div>
+              <div className="font-bold text-lg mb-2">Velocidad del viento</div>
               <p className="text-gray-700 text-5xl">{wind} Km/h</p>
             </div>
           </div>
-          <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
-              <div className="font-bold text-xl mb-2">Temperatura de suelo</div>
+              <div className="font-bold text-lg mb-2">Temperatura de suelo</div>
               <p className="text-gray-700 text-5xl">{soilTemperature} ºC</p>
+            </div>
+          </div>
+          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <div className="px-6 py-4 text-center">
+              <div className="font-bold text-lg mb-2">Rayos UV</div>
+              <p className="text-gray-700 text-5xl">{uv}</p>
             </div>
           </div>
         </div>

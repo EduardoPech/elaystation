@@ -15,7 +15,7 @@ import { Multiple } from "../components/charts/Multiple";
 import { LineColumn } from "../components/charts/LineColumn";
 import { Radio } from "../components/Radio";
 import { alertMixed } from "../utils/logicAlerts";
-import { toast, Bounce } from "react-toastify";
+import { addAlert } from "../lib/features/alertSlice";
 
 
 export default function Dashboard() {
@@ -168,20 +168,21 @@ export default function Dashboard() {
   useEffect(() => {
     if(temperature && humidity && soilTemperature && wind){
       const alert = alertMixed(temperature[temperature.length - 1].y, humidity[humidity.length - 1].y, soilTemperature[soilTemperature.length - 1].y, wind[wind.length - 1].y);
-      toast.error(`Alerta: ${alert}`, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
 
-      });
+      // Check and dispatch alert every 1 minute
+      const interval = setInterval(() => {
+        if(alert){
+          dispatch(addAlert({
+            id: new Date().getTime(),
+            message: alert.message,
+            ruleMessage: alert.ruleMessage,
+            icon: alert.icon,
+          }));
+        }
+      }, 60000);
+      return () => clearInterval(interval);
     }
-  }, [temperature, humidity, soilTemperature, wind]);
+  }, [temperature, humidity, soilTemperature, wind, dispatch]);
 
   const onChange = () => {
     setRealTime(!realTime);
