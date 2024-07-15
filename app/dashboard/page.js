@@ -19,6 +19,7 @@ import { addAlert } from "../lib/features/alertSlice";
 
 
 export default function Dashboard() {
+  const MAX_TIME_ALERT = 60000; // 1 minute
   const dispatch = useDispatch();
   const realTimeState = useSelector((state) => state.user.realTime);
   const hour = 3600000;
@@ -32,6 +33,8 @@ export default function Dashboard() {
   const [soilTemperature, setSoilTemperature] = useState(0);
   const [realTime, setRealTime] = useState(realTimeState);
   const [typeDate, setTypeDate] = useState("hour");
+  const alerts = useSelector((state) => state.alert.alerts);
+  const [listAlerts, setListAlerts] = useState(alerts);
 
   useEffect(() => {
     setRealTime(realTimeState);
@@ -41,6 +44,10 @@ export default function Dashboard() {
       setSeconds(hour);
     }
   }, [realTimeState]);
+
+  useEffect(() => {
+    setListAlerts(alerts);
+  }, [alerts]);
 
   const formatDate = (date) => {
     const fechaOriginal = new Date(date);
@@ -166,23 +173,29 @@ export default function Dashboard() {
   }, [seconds]);
 
   useEffect(() => {
-    if(temperature && humidity && soilTemperature && wind){
-      const alert = alertMixed(temperature[temperature.length - 1].y, humidity[humidity.length - 1].y, soilTemperature[soilTemperature.length - 1].y, wind[wind.length - 1].y);
+    const temperaturaAire = temperature[temperature.length - 1]?.y;
+    const humedadSuelo = humidity[humidity.length - 1]?.y;
+    const temperaturaSuelo = soilTemperature[soilTemperature.length - 1]?.y;
+    const velocidadViento = wind[wind.length - 1]?.y;
+    const alert = alertMixed({
+      temperaturaAire,
+      humedadSuelo,
+      temperaturaSuelo,
+      velocidadViento,
+    });
 
-      // Check and dispatch alert every 1 minute
-      const interval = setInterval(() => {
-        if(alert){
-          dispatch(addAlert({
-            id: new Date().getTime(),
-            message: alert.message,
-            ruleMessage: alert.ruleMessage,
-            icon: alert.icon,
-          }));
-        }
-      }, 60000);
-      return () => clearInterval(interval);
-    }
-  }, [temperature, humidity, soilTemperature, wind, dispatch]);
+      const lastAlert = listAlerts[listAlerts.length - 1];
+      if(lastAlert && (new Date().getTime() - lastAlert.id) < MAX_TIME_ALERT){
+        return;
+      } else if(alert && alert.message) {
+        dispatch(addAlert({
+          id: new Date().getTime(),
+          message: alert.message,
+          ruleMessage: alert.ruleMessage,
+          icon: alert.icon,
+        }));
+      }
+  }, [temperature, humidity, soilTemperature, wind, dispatch, listAlerts]);
 
   const onChange = () => {
     setRealTime(!realTime);

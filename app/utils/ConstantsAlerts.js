@@ -1,4 +1,5 @@
 // Temperature
+const TEMP_MIN = -100;
 const TEMP_MUY_FRIO = 5;
 const TEMP_FRIO = 15;
 const TEMP_TEMPLADO = 25;
@@ -27,6 +28,7 @@ const VEL_ALTA = 36;
 const VEL_MUY_ALTA = 100;
 
 export {
+    TEMP_MIN,
     TEMP_MUY_FRIO,
     TEMP_FRIO,
     TEMP_TEMPLADO,

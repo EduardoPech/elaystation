@@ -1,17 +1,14 @@
 "use client";
 
-import { LineChartTemperature } from "../../components/charts/temperature/LineChartTemperature";
+import { LineChartUV } from "../../components/charts/uv/LineChartUV";
 import { Loading } from "../../components/Loading";
 import { useState, useEffect } from "react";
 import { Radio } from "../../components/Radio";
 import { Switch } from "../../components/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRealTime } from "../../lib/features/userSlice";
-import { alertEachSensor } from "../../utils/logicAlerts";
-import { addAlert } from "../../lib/features/alertSlice";
 
-export default function Temperature() {
-  const MAX_TIME_ALERT = 60000; // 1 minute
+export default function UV() {
   const [temperature, setTemperature] = useState(0);
   const [typeDate, setTypeDate] = useState("hour");
   const realTimeState = useSelector((state) => state.user.realTime);
@@ -19,12 +16,6 @@ export default function Temperature() {
   const dispatch = useDispatch();
   const hour = 3600000;
   const [seconds, setSeconds] = useState(hour);
-  const alerts = useSelector((state) => state.alert.alerts);
-  const [listAlerts, setListAlerts] = useState(alerts);
-
-  useEffect(() => {
-    setListAlerts(alerts);
-  }, [alerts]);
 
   const getData = async () => {
     const url = typeDate === 'hour' ? "/api/temperature/30" : "/api/bydate";
@@ -34,24 +25,10 @@ export default function Temperature() {
         const formatDataTemperature = data.map((item) => {
           return {
             x: new Date(item.FechaRegistro).getTime(),
-            y: item.Temperatura,
+            y: item.uv,
           };
         });
         setTemperature(formatDataTemperature);
-        const alert = alertEachSensor({
-          temperaturaAire: data[data.length - 1].Temperatura
-        });
-        const lastAlert = listAlerts[listAlerts.length - 1];
-        if(lastAlert && (new Date().getTime() - lastAlert.id) < MAX_TIME_ALERT){
-          return;
-        } else if(alert && alert.message) {
-          dispatch(addAlert({
-            id: new Date().getTime(),
-            message: alert.message,
-            ruleMessage: alert.ruleMessage,
-            icon: alert.icon,
-          }));
-        }
       })
       .catch((error) => {
         throw new Error(error);
@@ -89,7 +66,7 @@ export default function Temperature() {
   return (
     <div className="m-10">
       <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 text-center pt-10">
-        Temperatura
+        Rayos UV
       </h1>
       <p className="font-light text-gray-800 mb-5 text-center">
         Datos climáticos en tiempo real y análisis meteorológicos
@@ -104,7 +81,7 @@ export default function Temperature() {
           </div>
         </div>
       </div>
-      {temperature ? <LineChartTemperature data={temperature} typeDate={typeDate} /> : <Loading />}
+      {temperature ? <LineChartUV data={temperature} typeDate={typeDate} /> : <Loading />}
     </div>
   );
 }

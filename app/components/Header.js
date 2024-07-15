@@ -46,7 +46,7 @@ export default function Header() {
         >
           <Image src={logo} alt="logo" className="w-auto h-10" priority />
         </a>
-        {pathName !== "/dashboard" && (
+        {!pathName.includes('/dashboard') && (
           <>
             <button
               data-collapse-toggle="navbar-default"
@@ -142,7 +142,7 @@ export default function Header() {
           </>
         )}
 
-        {isLogged && pathName === "/dashboard" && (
+        {isLogged && pathName.includes('/dashboard') && (
           <>
             <div className="flex gap-2 relative">
             <Notifications listAlerts={listAlerts} />

@@ -7,6 +7,8 @@ import { Radio } from "../../components/Radio";
 import { Switch } from "../../components/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRealTime } from "../../lib/features/userSlice";
+import { alertEachSensor } from "../../utils/logicAlerts";
+import { addAlert } from "../../lib/features/alertSlice";
 
 export default function Wind() {
   const [wind, setWind] = useState(0);
@@ -16,6 +18,12 @@ export default function Wind() {
   const dispatch = useDispatch();
   const hour = 3600000;
   const [seconds, setSeconds] = useState(hour);
+  const alerts = useSelector((state) => state.alert.alerts);
+  const [listAlerts, setListAlerts] = useState(alerts);
+
+  useEffect(() => {
+    setListAlerts(alerts);
+  }, [alerts]);
 
   const getData = async () => {
     const url = typeDate === 'hour' ? "/api/temperature/30" : "/api/bydate";
@@ -29,6 +37,21 @@ export default function Wind() {
           };
         });
         setWind(formatDataWind);
+
+        const alert = alertEachSensor({
+          velocidadViento: data[data.length - 1].velocidad_viento
+        });
+        const lastAlert = listAlerts[listAlerts.length - 1];
+        if(lastAlert && (new Date().getTime() - lastAlert.id) < MAX_TIME_ALERT){
+          return;
+        } else if(alert && alert.message) {
+          dispatch(addAlert({
+            id: new Date().getTime(),
+            message: alert.message,
+            ruleMessage: alert.ruleMessage,
+            icon: alert.icon,
+          }));
+        }
       })
       .catch((error) => {
         throw new Error(error);

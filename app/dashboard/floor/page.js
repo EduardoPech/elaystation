@@ -7,15 +7,24 @@ import { Radio } from "../../components/Radio";
 import { Switch } from "../../components/Switch";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRealTime } from "../../lib/features/userSlice";
+import { alertEachSensor } from "../../utils/logicAlerts";
+import { addAlert } from "../../lib/features/alertSlice";
 
 export default function Floor() {
+  const MAX_TIME_ALERT = 60000; // 1 minute
+  const dispatch = useDispatch();
   const [floor, setFloor] = useState(0);
   const [typeDate, setTypeDate] = useState("hour");
   const realTimeState = useSelector((state) => state.user.realTime);
   const [realTime, setRealTime] = useState(realTimeState);
-  const dispatch = useDispatch();
   const hour = 3600000;
   const [seconds, setSeconds] = useState(hour);
+  const alerts = useSelector((state) => state.alert.alerts);
+  const [listAlerts, setListAlerts] = useState(alerts);
+
+  useEffect(() => {
+    setListAlerts(alerts);
+  }, [alerts]);
 
   const getData = async () => {
     const url = typeDate === 'hour' ? "/api/temperature/30" : "/api/bydate";
@@ -29,6 +38,20 @@ export default function Floor() {
           };
         });
         setFloor(formatDataSoilTemperature);
+        const alert = alertEachSensor({
+          temperaturaSuelo: data[data.length - 1].TemperaturaSuelo
+        });
+        const lastAlert = listAlerts[listAlerts.length - 1];
+        if(lastAlert && (new Date().getTime() - lastAlert.id) < MAX_TIME_ALERT){
+          return;
+        } else if(alert && alert.message) {
+          dispatch(addAlert({
+            id: new Date().getTime(),
+            message: alert.message,
+            ruleMessage: alert.ruleMessage,
+            icon: alert.icon,
+          }));
+        }
       })
       .catch((error) => {
         throw new Error(error);

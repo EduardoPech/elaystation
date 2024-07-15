@@ -59,6 +59,7 @@ export function Aside() {
     { name: "Temperatura", href: "/dashboard/temperature", icon: IconGraph},
     { name: "Viento", href: "/dashboard/wind", icon: IconGraph},
     { name: "Suelo", href: "/dashboard/floor", icon: IconGraph},
+    { name: "Rayos UV", href: "/dashboard/uv", icon: IconGraph},
   ];
 
   return (
