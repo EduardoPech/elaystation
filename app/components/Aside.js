@@ -60,6 +60,7 @@ export function Aside() {
     { name: "Viento", href: "/dashboard/wind", icon: IconGraph},
     { name: "Suelo", href: "/dashboard/floor", icon: IconGraph},
     { name: "Rayos UV", href: "/dashboard/uv", icon: IconGraph},
+    { name: "Humedad suelo", href: "/dashboard/soil", icon: IconGraph},
   ];
 
   return (

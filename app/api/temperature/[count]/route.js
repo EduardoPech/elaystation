@@ -8,7 +8,7 @@ export async function GET(request, context) {
   if (pathname === `/api/temperature/${count}`) {
     try {
       const results = await db.query(
-        "SELECT id, FechaRegistro, Temperatura, Humedad, velocidad_viento, TemperaturaSuelo, uv FROM `sensores` ORDER BY id DESC LIMIT " +
+        "SELECT id, FechaRegistro, Temperatura, Humedad, velocidad_viento, TemperaturaSuelo, uv, humedad_suelo FROM `sensores` ORDER BY id DESC LIMIT " +
           count
       );
 

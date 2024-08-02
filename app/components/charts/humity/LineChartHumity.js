@@ -45,7 +45,7 @@ export function LineChartHumity({ data, typeDate }) {
         text: "Humedad",
       },
       min: 0,
-      max: 60,
+      max: 100,
     },
   };
 
