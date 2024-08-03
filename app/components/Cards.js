@@ -59,39 +59,41 @@ export function Cards() {
 
   return (
     <section id="sensor" className="bg-gray-100">
-      <div className="py-8 mx-auto lg:py-16 lg:px-10">
-        <div className="grid gap-8 mb-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 justify-items-stretch">
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+      <div className="py-8 mx-auto lg:px-10">
+        <div className="grid gap-8 mb-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 justify-items-stretch">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Humedad</div>
               <p className="text-gray-700 text-5xl">{humidity}%</p>
             </div>
           </div>
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Temperatura</div>
               <p className="text-gray-700 text-5xl">{temperature} ºC</p>
             </div>
           </div>
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Velocidad del viento</div>
               <p className="text-gray-700 text-5xl">{wind} Km/h</p>
             </div>
           </div>
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+        </div>
+        <div className="grid gap-8 mb-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-3 justify-items-stretch">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Temperatura de suelo</div>
               <p className="text-gray-700 text-5xl">{soilTemperature} ºC</p>
             </div>
           </div>
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Rayos UV</div>
               <p className="text-gray-700 text-5xl">{uv}</p>
             </div>
           </div>
-          <div className="lg:max-w-sm rounded overflow-hidden shadow-lg bg-white">
+          <div className="rounded overflow-hidden shadow-lg bg-white">
             <div className="px-6 py-4 text-center">
               <div className="font-bold text-lg mb-2">Humedad del suelo</div>
               <p className="text-gray-700 text-5xl">{soilHumidity}</p>
